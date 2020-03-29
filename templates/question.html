@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}
+答题页面
+{% endblock %}
+{% block main %}
+    <ol class="breadcrumb">
+      <li><a href="{{url_for('index')}}">首页</a></li>
+      <li><a href="{{url_for('practice')}}">习题页</a></li>
+      <li><a href="{{url_for('check_paper',id=paper.id)}}">{{paper.title}}</a></li>
+      <li class="active">{{question.name}}</li>
+    </ol>
+    <div class="page-header">
+        <h1>
+            {{question.name}}
+        </h1>
+    </div>
+    <blockquote class="blockquote-info">
+      <p>提示</p>
+      <footer>{{ question.tips }}</footer>
+    </blockquote>
+    <div class="zw">
+        <h3>题目描述</h3>
+        <p><pre>{{ question.content }}</pre></p>
+    </div>
+    <div class="zw">
+        <h3>输入格式</h3>
+        <p><pre>{{ question.input }}</pre></p>
+    </div>
+    <div class="zw">
+        <h3>输出格式</h3>
+        <p><pre>{{ question.output }}</pre></p>
+    </div>
+    <div class="zw">
+        <h3>输入输出样例</h3>
+        {% for ex in example %}
+            <div class="">
+              <div class="panel-body">
+                <div class="panel panel-danger" style="width: 45%;float: left">
+                  <div class="panel-heading">输入样例</div>
+                  <div class="panel-body">
+                      <pre>{{ ex.input }}</pre>
+                  </div>
+                </div>
+                <div style="width: 10%;float: left;height: 20px;"></div>
+                <div class="panel panel-danger" style="width: 45%;float: left">
+                  <div class="panel-heading">输出样例</div>
+                  <div class="panel-body">
+                      <pre>{{ ex.out }}</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="zw" style="margin-top: 0px;min-height: 500px;">
+        <h3 style="margin-top: 0px">输入代码(自动检测语言)</h3>
+        <form role="form" method="POST" id="question_form">
+            <div class="form-group" style="padding: 10px">
+                <textarea class="form-control" rows="10" name="code">{{ content }}</textarea>
+                <button class="btn btn-info btn-block" style="margin-top: 20px;height: 50px" type="button" onclick="code_verify();">提交代码</button>
+            </div>
+        </form>
+        <div id="core" hidden="hidden">
+            <pre id="code_content"></pre>
+            <h3><i class="fa fa-spinner fa-spin"></i>正在编译中....</h3>
+        </div>
+    </div>
+{% endblock %}

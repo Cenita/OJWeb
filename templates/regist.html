@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+注册
+{% endblock %}
+{% block head %}
+    <script src="{{ url_for('static',filename='login_regist/vector.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'login_regist/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'login_regist.css') }}">
+{% endblock %}
+{% block main %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row">
+                <div id="container">
+                    <div id="output">
+                        <div class="containerT base_main main_regist">
+                            <h1>用户注册</h1>
+                            <form method="POST" class="form" id="entry_regist">
+                                <input type="text" placeholder="用户名（用于登录）" id="entry_name" name="username">
+                                <input type="text" placeholder="姓名(真实姓名)" id="entry_trueName" name="truename">
+                                <input type="text" placeholder="邮箱" id="entry_email" name="email">
+                                <input type="password" placeholder="密码" id="entry_password" name="password">
+                                <input type="password" placeholder="确认密码" id="entry_password_again" name="password_again">
+                                <input type="text" placeholder="注册码" id="entry_registPort" name="registPort">
+                                <button type="button" onclick="regist_verify({{ url_for('regist') }});" id="entry_btn">确认注册</button>
+                                <div id="prompt" class="prompt"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+<script type="text/javascript">
+    $(function(){
+        Victor("container", "output");   //登陆背景函数
+        $("#entry_name").focus();
+        $(document).keydown(function(event){
+            if(event.keyCode==13){
+                $("#entry_btn").click();
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'backstage/base.html' %}
+{% block main %}
+<ol  class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">My Dashboard</li>
+  </ol>
+  <!-- Example DataTables Card-->
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fa fa-table"></i> Data Table Example</div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>试题ID</th>
+              <th>标题</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>试题ID</th>
+              <th>标题</th>
+              <th>操作</th>
+            </tr>
+          </tfoot>
+          <tbody>
+          {% for q in que %}
+              <tr>
+                <td>{{q.PID}}</td>
+                <td>{{q.name}}</td>
+                <td>
+                    <a href="">查看</a>
+                    <a href="">删除</a>
+                </td>
+
+              </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+{% endblock %}

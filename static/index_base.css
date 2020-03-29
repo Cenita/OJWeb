@@ -1,0 +1,28 @@
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+    background: #f2fcff;
+    color: #004f53;
+}
+.nav-pills{
+    border: solid 1px #b1eeee;
+    border-radius: 5px;
+}
+.nav>li>a:focus, .nav>li>a:hover
+{
+    background: #e2fcff;
+}
+.table{
+    color: #006a6e;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    border-top: 1px solid #b1eeee;
+}
+.table>thead>tr>th{
+    border-bottom: 2px solid #b1eeee;
+}
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+    border: 1px solid #b1eeee;
+}
+.table>thead:first-child>tr:first-child>th{
+    border: 2px solid #b1eeee;
+    border-radius: 20px;
+}

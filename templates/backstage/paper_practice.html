@@ -1,0 +1,57 @@
+{% extends 'backstage/base.html' %}
+{% block main %}
+    <ol  class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ url_for('back_index') }}">首页</a>
+        </li>
+        <li class="breadcrumb-item active">练习卷管理</li>
+    </ol>
+  <!-- Example DataTables Card-->
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fa fa-table"></i>   练习卷管理系统</div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div class="add_paper">
+            <a href="{{ url_for('back_add_paper',type='practice') }}">添加试卷</a>
+        </div>
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>标题</th>
+              <th>开始时间</th>
+              <th>结束时间</th>
+              <th>题目量</th>
+              <th>创建时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>标题</th>
+              <th>开始时间</th>
+              <th>结束时间</th>
+              <th>题目量</th>
+              <th>创建时间</th>
+              <th>操作</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for paper in paper_list %}
+                <tr>
+                    <td>{{paper.title }}</td>
+                    <td>{{paper.start_time}}</td>
+                    <td>{{paper.end_time}}</td>
+                    <td>{{paper.quesition_num}}</td>
+                    <td>{{paper.create_time}}</td>
+                    <td><a href="{{ url_for('back_edit_paper',id=paper.paper_id) }}">修改试卷</a></td>
+                </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+{% endblock %}

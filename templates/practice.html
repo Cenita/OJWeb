@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}
+练习试题
+{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block main %}
+    <ol class="breadcrumb">
+      <li><a href="{{url_for('index')}}">首页</a></li>
+      <li class="active">习题页</li>
+    </ol>
+    <div class="panel panel-ready">
+      <div class="panel-heading">未到时间的练习</div>
+      <div class="panel-body">
+          {% if ready_paper %}
+          <table class="table table-hover table-ready" style="margin-bottom: 20px">
+              <thead>
+                  <th>试题卷名称</th>
+                  <th>开始时间</th>
+                  <th>结束时间</th>
+                  <th>题目数量</th>
+              </thead>
+              <tbody>
+              {% for paper in ready_paper %}
+                <tr>
+                    <td>{{paper.title}}</td>
+                    <td>{{paper.start_time}}</td>
+                    <td>{{paper.end_time}}</td>
+                    <td>{{paper.question_num}}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+          {% endif %}
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">正在进行的练习</div>
+      <div class="panel-body">
+        {% if can_do_paper %}
+          <table class="table table-hover" style="margin-bottom: 20px">
+              <thead>
+                  <th>试题卷名称</th>
+                  <th>开始时间</th>
+                  <th>结束时间</th>
+                  <th>题目数量</th>
+                  <th>操作</th>
+              </thead>
+              <tbody>
+              {% for paper in can_do_paper %}
+                <tr>
+                    <td>{{paper.title}}</td>
+                    <td>{{paper.start_time}}</td>
+                    <td>{{paper.end_time}}</td>
+                    <td>{{paper.question_num}}</td>
+                    <td><a href="{{ url_for('check_paper',id=paper.id) }}">进入</a></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="panel panel-default panel-finish">
+      <div class="panel-heading">过期练习</div>
+      <div class="panel-body">
+      {% if time_out_paper %}
+        <table class="table table-hover table-finish" style="margin-bottom: 20px">
+              <thead>
+                  <th>试题卷名称</th>
+                  <th>开始时间</th>
+                  <th>结束时间</th>
+                  <th>题目数量</th>
+                  <th>操作</th>
+              </thead>
+              <tbody>
+                  {% for paper in time_out_paper %}
+                    <tr>
+                        <td>{{paper.title}}</td>
+                        <td>{{paper.start_time}}</td>
+                        <td>{{paper.end_time}}</td>
+                        <td>{{paper.question_num}}</td>
+                    </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      {% endif %}
+      </div>
+    </div>
+{% endblock %}

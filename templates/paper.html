@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}
+试卷页面
+{% endblock %}
+{% block main %}
+    <ol class="breadcrumb">
+      <li><a href="{{url_for('index')}}">首页</a></li>
+      <li><a href="{{url_for('practice')}}">习题页</a></li>
+      <li class="active">{{paper.title}}</li>
+    </ol>
+    <div class="page-header">
+        <h1>
+            {{paper.title}}
+        </h1>
+    </div>
+    <blockquote class="blockquote-info">
+      <footer>开始时间<cite title="Source Title">&nbsp {{ paper.start_time }}</cite></footer>
+      <footer>结束时间<cite title="Source Title">&nbsp {{ paper.end_time }}</cite></footer>
+    </blockquote>
+    <div class="zw">
+        <h3>题目</h3>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+                <th>题目序号</th>
+                <th>题目标题</th>
+                <th>完成情况</th>
+                <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for q in questions.qs %}
+                <tr>
+                    <td>{{ q.index }}</td>
+                    <td>{{ q.question.name }}</td>
+                    <td>{% if q.score.score  %}<a style="text-decoration: underline;{%  if q.score.score>70 %}color:green{% endif %}" href="{{ url_for('record',id=q.score.id) }}">{{ q.score.score }}</a>{% else %}<div style="color: red">0</div>{% endif %}</td>
+                    <td><a href="{{ url_for('check_quesiton',id=paper.id,qs_id=q.question.id) }}">进入</a></td>
+                </tr>
+
+            {% endfor %}
+          </tbody>  
+        </table>
+    </div>
+    <div class="zw">
+        <h3>完成情况</h3>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+                <th>姓名</th>
+                <th>总分(ACT)</th>
+                {% for index in user_record[0].question %}
+                    <th>第 {{ index[0] }} 题</th>
+                {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in user_record %}
+                <tr>
+                    <td>{{ user.user }}</td>
+                    <td>{{ user.all_sum }}</td>
+                    {% for que in user.question %}
+                        <td>{{ que[1] }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+{% endblock %}

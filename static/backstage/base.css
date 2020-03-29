@@ -1,0 +1,12 @@
+.add_paper{
+    height: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+.add_paper a{
+    float: right;
+}
+.control-group
+{
+    margin-bottom: 20px;
+}

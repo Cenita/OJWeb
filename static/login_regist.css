@@ -1,0 +1,20 @@
+.base_main{
+    font-family: 'Microsoft YaHei'!important;
+    font-weight: 800!important;
+    color: #feffff;
+    background: rgba(82, 213, 255, 0.5);
+    border: 2px solid rgba(82, 213, 255, 0.1);
+    border-radius: 20px;
+}
+.base_main h1{
+    font-family: 'Microsoft YaHei'!important;
+    font-weight: 800!important;
+    font-size: 25px;
+}
+.base_main form input{
+    margin-bottom: 25px;
+}
+.main_regist{
+    height: 550px;
+    margin-top: -260px;
+}

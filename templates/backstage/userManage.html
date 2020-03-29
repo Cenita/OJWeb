@@ -1,0 +1,57 @@
+{% extends 'backstage/base.html' %}
+{% block main %}
+  <ol  class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">My Dashboard</li>
+  </ol>
+  <!-- Example DataTables Card-->
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fa fa-table"></i>  人员管理表</div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>用户名</th>
+              <th>真实姓名</th>
+              <th>邮箱</th>
+              <th>创建时间</th>
+              <th>身份</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>用户名</th>
+              <th>真实姓名</th>
+              <th>邮箱</th>
+              <th>创建时间</th>
+              <th>身份</th>
+              <th>操作</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for user in user_list %}
+                <tr>
+                {% for u in user %}
+                    <td>
+                    {{ u }}
+                    </td>
+                {% endfor %}
+                <td>
+                    {% if user[4]=='普通用户' %}
+                    <a href="{{ url_for("back_delectUser",id=user[0])}}">删除用户</a>
+                    {% endif %}
+                </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+{% endblock %}

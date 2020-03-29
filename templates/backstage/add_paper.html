@@ -1,0 +1,134 @@
+{% extends 'backstage/base.html' %}
+{% block head %}
+{#时间选择器#}
+    <link rel="stylesheet" href="{{ url_for('static',filename='backstage/time_select/css/style.css') }}">
+{% endblock %}
+{% block main %}
+    <ol  class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ url_for('back_index') }}">首页</a>
+        </li>
+        {% if paper_type=='1' %}
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('back_practice') }}">练习卷管理</a>
+            </li>
+        {% else %}
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('back_exam') }}">考试管理</a>
+            </li>
+        {% endif %}
+        <li class="breadcrumb-item active">{% if id %}修改{% else %}增加{% endif %}试卷</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="add_main">
+      <form class="form-horizontal" method="post">
+        <div class="form-group">
+          <!-- Text input-->
+          <label class="control-label" for="input01">试卷标题</label>
+          <div class="controls">
+            <input class="form-control" name="title" type="text" placeholder="标题" {% if id %}value="{{ title }}"{% endif %}>
+            <p class="help-block"></p>
+          </div>
+        </div>
+        <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label" for="input01">考试类别</label>
+          <div class="controls">
+            <input class="form-control" name="type" type="text" placeholder="用于帮助分类以及查找"{% if id %}value="{{ attr }}"{% endif %}>
+            <p class="help-block"></p>
+          </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">试卷类别</label>
+            <div class="controls">
+                <select class="form-control" name="paper_type" {% if id %}value="{{ paper_type }}"{% endif %}>
+                  <option value="1"{% if paper_type=='1' %}selected="selected"{% endif %}>普通练习卷</option>
+                  <option value="2"{% if paper_type=='2' %}selected="selected"{% endif %}>考试卷子</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+          <!-- Text input-->
+            <label class="control-label" for="input01" style="display: block">开始时间</label>
+            <div class="calendarWarp"  style="display: block">
+                <input type="text" name="startTime" class='ECalendar form-control' id="ECalendar_date1" {% if id %}value="{{ start_time }}"{% endif %} />
+            </div>
+        </div>
+        <div class="control-group">
+          <!-- Search input-->
+          <label class="control-label" style="display: block">结束时间</label>
+          <div class="calendarWarp" style="display: block">
+              <input type="text" name="endTime" class='ECalendar form-control' {% if id %}value="{{ end_time }}"{% endif %} id="ECalendar_date2"  />
+          </div>
+        </div>
+        <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label" for="input01">试卷题目</label>
+          <div class="controls">
+            <input class="form-control" type="text" placeholder="请输入题目id" {% if id %}value="{{ question }}"{% endif %} name="qu_list">
+            <p>每道题目使用(；)分号隔开</p>
+          </div>
+
+        </div>
+        <div class="control-group">
+            <label class="control-label">试卷状态</label>
+            <div class="controls">
+              <!-- Multiple Radios -->
+              <label class="radio">
+                <input name="status" type="radio" checked="checked" value="1">
+                正常
+              </label>
+              <label class="radio">
+                <input name="status" type="radio" value="2">
+                停止
+              </label>
+            </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label"></label>
+          <!-- Button -->
+          {% if id %}
+              <div class="controls row">
+                  <button class="btn btn-primary btn-lg col-md-5" name="btn" value="edit" type="submit">修改试卷</button>
+                  <div class="col-md-2"></div>
+                  <button class="btn btn-danger btn-lg col-md-5" name="btn" value="del" type="submit">删除试卷</button>
+              </div>
+          {% else %}
+              <div class="controls">
+                  <button class="btn btn-primary btn-lg btn-block" type="submit">增加试卷</button>
+              </div>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}
+{% block footer %}
+    <script src="{{ url_for('static',filename='backstage/time_select/js/Ecalendar.jquery.min.js') }}"></script>
+    <script type="text/javascript">
+	$(function(){
+		$("#ECalendar_date1").ECalendar({
+			 type:"time",   //模式，time: 带时间选择; date: 不带时间选择;
+			 stamp : false,   //是否转成时间戳，默认true;
+			 offset:[0,2],   //弹框手动偏移量;
+			 format:"yyyy-mm-dd hh:ii",   //时间格式 默认 yyyy-mm-dd hh:ii;
+			 skin:3,   //皮肤颜色，默认随机，可选值：0-8,或者直接标注颜色值;
+			 step:10,   //选择时间分钟的精确度;
+			 callback:function(v,e){} //回调函数
+		});
+		$("#ECalendar_date2").ECalendar({
+			 type:"time",   //模式，time: 带时间选择; date: 不带时间选择;
+			 stamp : false,   //是否转成时间戳，默认true;
+			 offset:[0,2],   //弹框手动偏移量;
+			 format:"yyyy-mm-dd hh:ii",   //时间格式 默认 yyyy-mm-dd hh:ii;
+			 skin:3,   //皮肤颜色，默认随机，可选值：0-8,或者直接标注颜色值;
+			 step:10,   //选择时间分钟的精确度;
+			 callback:function(v,e){} //回调函数
+		});
+	})
+</script>
+{% endblock %}

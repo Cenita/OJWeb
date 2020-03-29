@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}
+答题记录
+{% endblock %}
+{% block head %}
+    <style>
+    pre{
+        padding: 0px 10px;
+    }
+    </style>
+{% endblock %}
+{% block main %}
+    <ol class="breadcrumb">
+      <li><a href="{{url_for('index')}}">首页</a></li>
+      <li><a href="{{url_for('practice')}}">习题页</a></li>
+      <li><a href="{{url_for('check_paper',id=paper.id)}}">{{paper.name}}</a></li>
+      <li class="active">提交情况</li>
+    </ol>
+    <div class="page-header">
+        <h1>
+            {{question.name}}
+        </h1>
+    </div>
+    <div class="zw">
+        <h3>提交情况</h3>
+        {% if rec_result.compile.success==False %}
+            <div class="panel panel-danger">
+              <div class="panel-heading">编译失败（0）</div>
+              <div class="panel-body">
+                  <pre>{{ rec_result.compile.content }}</pre>
+              </div>
+            </div>
+        {% else %}
+            <div class="row">
+            <blockquote class="blockquote-info">
+              <h4>编译成功 ({{ rec_result.subtasks[0].score }})</h4>
+                <p></p>
+              <footer>使用时间: <cite title="Source Title">&nbsp {{ rec_result.subtasks[0].time }}ms</cite></footer>
+              <footer>使用内存: <cite title="Source Title">&nbsp {{ rec_result.subtasks[0].memory }}kb</cite></footer>
+            </blockquote>
+            <div class="yangli" style="min-height: 200px;width: auto">
+            {% for re in rec_result.testcases %}
+                <div class="panel {% if rec_result.testcases[re].score==0 %}panel-danger{% elif rec_result.testcases[re].message=="ok accepted" %} panel-success{% else %}panel-warning{% endif %}" style="width: 25%;float: left;margin-right: 20px">
+                  <div class="panel-heading">测试样例（{{ re }}）</div>
+                  <div class="panel-body">
+                      <pre>得分: {{ rec_result.testcases[re].score }}</pre>
+                      <pre>时间消耗: {{ rec_result.testcases[re].time }}ms</pre>
+                      <pre>内存消耗: {{ rec_result.testcases[re].memory }}kb</pre>
+                      <pre>返回信息: {{ rec_result.testcases[re].message }}</pre>
+                  </div>
+                </div>
+            {% endfor %}
+            </div>
+            </div>
+
+        {% endif %}
+        <p><pre></pre></p>
+    </div>
+    <div class="row" style="margin-bottom: 30px">
+        <div class="zw" style="display: block">
+            <h3>提交代码</h3>
+            <p><pre style="color: #3d4b95;background: #effffc;padding: 10px">{{record.code}}</pre></p>
+        </div>
+    </div>
+{% endblock %}
